@@ -1,0 +1,16 @@
+{% extends "layout.njk" %}
+
+{% block title %}Editar Aluno{% endblock title %}
+
+{% block content %}
+<form class="card" method="POST" action="/student?_method=PUT">
+    <section class="avatar"style="background: url({{ student.avatar_url }}) no-repeat center center / cover"></section>
+    <section class="details">
+        <h3>Editar Aluno</h3>
+        <div>
+            <input type="hidden" name="id" value="{{ student.id }}">
+            {% include "student/fields.njk" %}
+        </div>
+    </section>
+</form>
+{% endblock content %}

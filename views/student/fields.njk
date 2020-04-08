@@ -1,0 +1,96 @@
+<div class="item">
+    <div>Avatar URL</div>
+    <input type="url" name="avatar_url" placeholder="Ex.: http://www.google.com.br" value="{{ student.avatar_url }}">
+</div>
+
+<div class="item">
+    <div>Nome completo</div>
+    <input type="text" name="name" value="{{ student.name }}">
+</div>
+
+<div class="item">
+    <div>Data de nascimento</div>
+    <input type="date" name="birth" value="{{ student.birth }}">
+</div>
+
+<div class="item">
+    <div>Email</div>
+    <input type="email" name="email" value="{{ student.email }}">
+</div>
+
+<div class="item">
+    <div>Ano escolar</div>
+    <select name="schoolYear">
+        <option
+            value="5EF"
+            {% if student.schoolYear == "5EF" %}
+                selected
+            {% endif %}
+        >
+        5ª Série
+        </option>
+        <option
+            value="6EF"
+            {% if student.schoolYear == "6EF" %}
+                selected
+            {% endif %}
+        >
+        6ª Série
+        </option>
+        <option
+            value="7EF"
+            {% if student.schoolYear == "7EF" %}
+                selected
+            {% endif %}
+        >
+        7ª Série
+        </option>
+        <option
+            value="8EF"
+            {% if student.schoolYear == "8EF" %}
+                selected
+            {% endif %}
+        >
+        8ª Série
+        </option>
+        <option
+            value="9EF"
+            {% if student.schoolYear == "9EF" %}
+                selected
+            {% endif %}
+        >
+        9ª Série
+        </option>
+        <option
+            value="1EM"
+            {% if student.schoolYear == "1EM" %}
+                selected
+            {% endif %}
+        >
+        1º Colegial
+        </option>
+        <option
+            value="2EM"
+            {% if student.schoolYear == "2EM" %}
+                selected
+            {% endif %}
+        >
+        2º Colegial
+        </option>
+        <option
+            value="3EM"
+            {% if student.schoolYear == "3EM" %}
+                selected
+            {% endif %}
+        >
+        3º Colegial
+        </option>
+    </select>
+</div>
+
+<div class="item">
+    <div>Carga horária semanal</div>
+    <input type="number" name="hoursByWeek" min="0" value="{{ student.hoursByWeek }}">
+</div>
+
+<button type="submit">Salvar</button>

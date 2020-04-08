@@ -1,0 +1,44 @@
+{
+    "students": [
+        {
+            "id": 2,
+            "avatar_url": "https://images.unsplash.com/photo-1493106819501-66d381c466f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+            "name": "Segundo Aluno",
+            "birth": 7956835200000,
+            "email": "segundo.aluno@email.com",
+            "schoolYear": "2EM",
+            "hoursByWeek": 2
+        },
+        {
+            "id": 3,
+            "avatar_url": "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+            "name": "Terceiro Aluno",
+            "birth": 43019856000000,
+            "email": "terceiro.aluno@email.tnttec",
+            "schoolYear": "3EM",
+            "hoursByWeek": 3
+        }
+    ],
+    "teachers": [
+        {
+            "id": 4,
+            "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+            "name": "Novo Professor",
+            "birth": 662688000000,
+            "degree": "doctor",
+            "class_type": "e-learning",
+            "services": "Informática, Mobile frameworks",
+            "created_at": 1585063178936
+        },
+        {
+            "id": 5,
+            "avatar_url": "https://images.unsplash.com/photo-1545996124-0501ebae84d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+            "name": "O Mais Novo Professor",
+            "birth": -30291926400000,
+            "degree": "doctor",
+            "class_type": "presential",
+            "services": "Filosofia, História",
+            "created_at": 1585065179213
+        }
+    ]
+}

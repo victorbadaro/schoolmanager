@@ -1,0 +1,47 @@
+{% extends "layout.njk" %}
+
+{% block title %}Aluno{% endblock title %}
+
+{% block content %}
+<div class="card">
+    <section class="avatar" style="background: url({{ student.avatar_url }}) no-repeat center center / cover"></section>
+    <section class="details">
+        <div>
+
+            <div class="item">
+                <div>Aluno</div>
+                <div>{{ student.name }}</div>
+            </div>
+
+            <div class="item">
+                <div>Aniversário</div>
+                <div>{{ student.birth }}</div>
+            </div>
+
+            <div class="item">
+                <div>Email</div>
+                <div>{{ student.email }}</div>
+            </div>
+
+            <div class="item">
+                <div>Ano escolar</div>
+                <div>{{ student.grade }}</div>
+            </div>
+
+            <div class="item">
+                <div>Carga horária semanal</div>
+                <div>{{ student.hoursByWeek }} horas</div>
+            </div>
+
+            <div class='btn-grid'>
+                <a class="button" href="/student/{{ student.id }}/edit">Editar perfil</a>
+                <form id="form-delete" action="/student?_method=DELETE" method="POST">
+                    <input type="hidden" name="id" value="{{ student.id }}">
+                    <button type="submit">Deletar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% include "confirm.njk" %}
+{% endblock content %}

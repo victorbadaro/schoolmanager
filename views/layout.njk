@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <title>Desafio 4-7 | {% block title %}{% endblock title %}</title>
+        <meta charset=utf-8>
+        <link rel="stylesheet" href="/css/style.css">
+        {% block css %}
+        {% endblock css %}
+    </head>
+    <body>
+        <header>
+            <a href="/teacher">Professores</a>
+            <a href="/student">Alunos</a>
+        </header>
+
+        {% block content %}
+        {% endblock content %}
+
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>
