@@ -1,5 +1,5 @@
 module.exports = {
-    age: function(timestamp) {
+    age(timestamp) {
         const today = new Date()
         const birthDate = new Date(timestamp)
 
@@ -11,7 +11,7 @@ module.exports = {
 
         return age
     },
-    date: function(timestamp) {
+    date(timestamp) {
         const date = new Date(timestamp)
         const year = `000${date.getUTCFullYear()}`.slice(-4)
         const month = `0${date.getUTCMonth() + 1}`.slice(-2)
@@ -25,7 +25,7 @@ module.exports = {
             isoFullDate: `${year}-${month}-${day}`
         }
     },
-    graduation: function(level) {
+    graduation(level) {
         const degrees = [
             {
                 level: "high_school",
@@ -50,7 +50,7 @@ module.exports = {
                 return degree.description
         }
     },
-    grade: function(currentSchoolYear) {
+    grade(currentSchoolYear) {
         const schoolYears = [
             {
                 schoolYear: '5EF',
