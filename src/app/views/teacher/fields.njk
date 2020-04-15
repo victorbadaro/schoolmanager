@@ -10,15 +10,15 @@
 
 <div class="item">
     <div>Data de nascimento</div>
-    <input type="date" name="birth" value="{{ teacher.birth }}">
+    <input type="date" name="birth_date" value="{{ teacher.birth_date }}">
 </div>
 
 <div class="item">
     <div>Grau de escolaridade</div>
-    <select name="degree">
+    <select name="education_level">
         <option
             value="high_school"
-            {% if teacher.degree == "high_school" %}
+            {% if teacher.education_level == "high_school" %}
                 selected
             {% endif %}
         >
@@ -27,7 +27,7 @@
 
         <option
             value="college"
-            {% if teacher.degree == "college" %}
+            {% if teacher.education_level == "college" %}
                 selected
             {% endif %}
         >
@@ -36,7 +36,7 @@
 
         <option
             value="master"
-            {% if teacher.degree == "master" %}
+            {% if teacher.education_level == "master" %}
                 selected
             {% endif %}
         >
@@ -45,7 +45,7 @@
 
         <option
             value="doctor"
-            {% if teacher.degree == "doctor" %}
+            {% if teacher.education_level == "doctor" %}
                 selected
             {% endif %}
         >
@@ -84,7 +84,7 @@
 
 <div class="item">
     <div>Área de atuação</div>
-    <input type="text" name="services" placeholder="Separe as atuações por vírgula" value="{{ teacher.services }}">
+    <input type="text" name="subjects_taught" placeholder="Separe as atuações por vírgula" value="{{ teacher.subjects_taught }}">
 </div>
 
 <button type="submit">Salvar</button>

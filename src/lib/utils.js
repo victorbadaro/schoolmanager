@@ -1,12 +1,12 @@
 module.exports = {
     age(timestamp) {
-        const today = new Date()
+        const today = new Date(Date.now())
         const birthDate = new Date(timestamp)
 
-        let age = today.getFullYear() - birthDate.getFullYear()
-        const month = today.getMonth() - birthDate.getMonth()
+        let age = today.getUTCFullYear() - birthDate.getUTCFullYear()
+        const month = today.getUTCMonth() - birthDate.getUTCMonth()
 
-        if (month <= 0 && today.getDate() <= birthDate.getDate())
+        if ((month < 0) || (month == 0 && today.getUTCDate() < birthDate.getUTCDate()))
             age = age - 1
 
         return age
@@ -26,68 +26,68 @@ module.exports = {
         }
     },
     graduation(level) {
-        const degrees = [
+        const education_levels = [
             {
-                level: "high_school",
+                name: "high_school",
                 description: "Ensino Médio Completo"
             },
             {
-                level: "college",
+                name: "college",
                 description: "Ensino Superior Completo"
             },
             {
-                level: "master",
+                name: "master",
                 description: "Mestrado"
             },
             {
-                level: "doctor",
+                name: "doctor",
                 description: "Doutorado"
             }
         ]
 
-        for (degree of degrees){
-            if (degree.level == level)
-                return degree.description
+        for (education_level of education_levels){
+            if (education_level.name == level)
+                return education_level.description
         }
     },
     grade(currentSchoolYear) {
-        const schoolYears = [
+        const school_years = [
             {
-                schoolYear: '5EF',
+                school_year: '5EF',
                 description: '5ª Série'
             },
             {
-                schoolYear: '6EF',
+                school_year: '6EF',
                 description: '6ª Série'
             },
             {
-                schoolYear: '7EF',
+                school_year: '7EF',
                 description: '7ª Série'
             },
             {
-                schoolYear: '8EF',
+                school_year: '8EF',
                 description: '8ª Série'
             },
             {
-                schoolYear: '9EF',
+                school_year: '9EF',
                 description: '9ª Série'
             },
             {
-                schoolYear: '1EM',
+                school_year: '1EM',
                 description: '1º Colegial'
             },
             {
-                schoolYear: '2EM',
+                school_year: '2EM',
                 description: '2º Colegial'
             },
             {
-                schoolYear: '3EM',
+                school_year: '3EM',
                 description: '3º Colegial'
             }
         ]
 
-        for (schoolYear of schoolYears) {
-            if (schoolYear.schoolYear == currentSchoolYear)
+        for (schoolYear of school_years) {
+            if (schoolYear.school_year == currentSchoolYear)
                 return schoolYear.description
         }
     }

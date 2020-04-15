@@ -23,8 +23,8 @@
                     </div>
                 </td>
                 <td>
-                    {% for service in teacher.services %}
-                    <span class="service">{{ service }}</span>
+                    {% for subject in teacher.subjects_taught %}
+                    <span class="subject">{{ subject }}</span>
                     {% endfor %}
                 </td>
                 <td><a href="/teacher/{{ teacher.id }}">ver</a></td>

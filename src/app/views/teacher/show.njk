@@ -21,7 +21,7 @@
 
             <div class="item">
                 <div>Grau de escolaridade</div>
-                <div>{{ teacher.degree }}</div>
+                <div>{{ teacher.education_level }}</div>
             </div>
 
             <div class="item">
@@ -32,8 +32,8 @@
             <div class="item">
                 <div>Acompanhamento</div>
                 <div>
-                    {% for service in teacher.services %}
-                    <span>{{ service }}</span>
+                    {% for subjects in teacher.subjects_taught %}
+                    <span>{{ subjects }}</span>
                     {% endfor %}
                 </div>
             </div>

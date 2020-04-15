@@ -120,7 +120,7 @@ header a:hover::after {
     color: var(--primary-color);
 }
 
-.details .item span, .service {
+.details .item span, .subject {
     padding: 8px 16px;
     border-radius: 16px;
     margin-top: 8px;

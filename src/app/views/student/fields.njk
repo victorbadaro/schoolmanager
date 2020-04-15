@@ -10,7 +10,7 @@
 
 <div class="item">
     <div>Data de nascimento</div>
-    <input type="date" name="birth" value="{{ student.birth }}">
+    <input type="date" name="birth_date" value="{{ student.birth_date }}">
 </div>
 
 <div class="item">
@@ -20,10 +20,10 @@
 
 <div class="item">
     <div>Ano escolar</div>
-    <select name="schoolYear">
+    <select name="school_year">
         <option
             value="5EF"
-            {% if student.schoolYear == "5EF" %}
+            {% if student.school_year == "5EF" %}
                 selected
             {% endif %}
         >
@@ -31,7 +31,7 @@
         </option>
         <option
             value="6EF"
-            {% if student.schoolYear == "6EF" %}
+            {% if student.school_year == "6EF" %}
                 selected
             {% endif %}
         >
@@ -39,7 +39,7 @@
         </option>
         <option
             value="7EF"
-            {% if student.schoolYear == "7EF" %}
+            {% if student.school_year == "7EF" %}
                 selected
             {% endif %}
         >
@@ -47,7 +47,7 @@
         </option>
         <option
             value="8EF"
-            {% if student.schoolYear == "8EF" %}
+            {% if student.school_year == "8EF" %}
                 selected
             {% endif %}
         >
@@ -55,7 +55,7 @@
         </option>
         <option
             value="9EF"
-            {% if student.schoolYear == "9EF" %}
+            {% if student.school_year == "9EF" %}
                 selected
             {% endif %}
         >
@@ -63,7 +63,7 @@
         </option>
         <option
             value="1EM"
-            {% if student.schoolYear == "1EM" %}
+            {% if student.school_year == "1EM" %}
                 selected
             {% endif %}
         >
@@ -71,7 +71,7 @@
         </option>
         <option
             value="2EM"
-            {% if student.schoolYear == "2EM" %}
+            {% if student.school_year == "2EM" %}
                 selected
             {% endif %}
         >
@@ -79,7 +79,7 @@
         </option>
         <option
             value="3EM"
-            {% if student.schoolYear == "3EM" %}
+            {% if student.school_year == "3EM" %}
                 selected
             {% endif %}
         >
@@ -90,7 +90,7 @@
 
 <div class="item">
     <div>Carga horária semanal</div>
-    <input type="number" name="hoursByWeek" min="0" value="{{ student.hoursByWeek }}">
+    <input type="number" name="hours_by_week" min="0" value="{{ student.hours_by_week }}">
 </div>
 
 <button type="submit">Salvar</button>

@@ -8,7 +8,7 @@ routes.get('/', (req, res) => {
 })
 
 // TEACHERS ROUTES
-routes.get('/teacher', teachers.get)
+routes.get('/teacher', teachers.index)
 routes.post('/teacher', teachers.post)
 routes.put('/teacher', teachers.update)
 routes.delete('/teacher', teachers.delete)
@@ -17,7 +17,7 @@ routes.get('/teacher/:id', teachers.show)
 routes.get('/teacher/:id/edit', teachers.edit)
 
 // STUDENTS ROUTES
-routes.get('/student', students.get)
+routes.get('/student', students.index)
 routes.post('/student', students.post)
 routes.put('/student', students.update)
 routes.delete('/student', students.delete)
