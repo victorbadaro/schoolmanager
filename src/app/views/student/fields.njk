@@ -93,4 +93,21 @@
     <input type="number" name="hours_by_week" min="0" value="{{ student.hours_by_week }}">
 </div>
 
+<div class="item">
+    <div>Professor</div>
+    <input type="hidden" value="{{ student.teacher_id }}">
+    <select name="teacher_id">
+        {% for teacher in teachers %}
+        <option
+            value="{{ teacher.id }}"
+            {% if student.teacher_id == teacher.id %}
+                selected
+            {% endif %}
+        >
+            {{ teacher.name }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+
 <button type="submit">Salvar</button>

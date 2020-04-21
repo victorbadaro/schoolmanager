@@ -23,7 +23,9 @@ module.exports = {
         })
     },
     create(req, res) {
-        return res.render('student/create')
+        Student.teachers(function(teachers) {
+            return res.render('student/create', { teachers })
+        })
     },
     show(req, res) {
         const { id } = req.params
@@ -43,7 +45,10 @@ module.exports = {
                 return res.send('Aluno não encontrado!')
 
             student.birth_date = date(student.birth_date).isoFullDate
-            return res.render('student/edit', {student})
+
+            Student.teachers(function(teachers) {
+                return res.render('student/edit', { student, teachers })
+            })
         })
     },
     update(req, res) {
