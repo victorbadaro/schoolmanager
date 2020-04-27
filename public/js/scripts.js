@@ -38,9 +38,9 @@ function paginate(selectecPage, totalPages) {
         oldPage
 
     for(let page = 1; page <= totalPages; page++) {
-        const firstAndLastPage = page == 1 || page == totalPages
-        const pagesBeforeSelectedPage = page >= selectecPage - 2
-        const pagesAfterSelectedPage = page <= selectecPage + 2
+        const firstAndLastPage = page == 1 || page == 2 || page == totalPages || page == totalPages - 1
+        const pagesBeforeSelectedPage = page >= selectecPage - 1
+        const pagesAfterSelectedPage = page <= selectecPage + 1
 
         if(firstAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
             if(oldPage && page - oldPage > 2)

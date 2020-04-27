@@ -21,8 +21,6 @@ module.exports = {
                     total: Math.ceil(teachers[0].total / limit)
                 }
 
-                console.log(teachers)
-
                 for(teacher of teachers) {
                     const subjects_taught = teacher.subjects_taught.split(',').map(function(subject_taught) {
                         return subject_taught.trim()
