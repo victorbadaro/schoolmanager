@@ -108,5 +108,37 @@ module.exports = {
 
             return callback(result.rows)
         })
+    },
+    paginate(params) {
+        const { filter, limit, offset, callback } = params
+
+        let query = '',
+            filterQuery = '',
+            totalQuery = `(SELECT COUNT(*) FROM students) AS total`
+
+        if(filter) {
+            filterQuery = `
+                WHERE name ILIKE '%${filter}%'
+                OR email ILIKE '%${filter}%'`
+
+            totalQuery = `(
+                SELECT COUNT (*) FROM students
+                ${filterQuery}
+            ) AS total`
+        }
+
+        query = `
+            SELECT *, ${totalQuery}
+            FROM students
+            ${filterQuery}
+            ORDER BY name ASC
+            LIMIT $1 OFFSET $2`
+        
+        db.query(query, [limit, offset], function(err, result) {
+            if(err)
+                throw `Database error!\n${err}`
+            
+            return callback(result.rows)
+        })
     }
 }
