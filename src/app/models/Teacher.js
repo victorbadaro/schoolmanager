@@ -131,6 +131,8 @@ module.exports = {
             GROUP BY teachers.id
             ORDER BY name ASC
             LIMIT $1 OFFSET $2`
+
+        console.log(query)
         
         db.query(query, [limit, offset], function(err, result) {
             if(err)

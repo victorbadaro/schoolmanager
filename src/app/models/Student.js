@@ -1,7 +1,11 @@
 const db = require('../../config/db')
 const { date } = require('../../lib/utils')
+const Base = require('./Base')
+
+Base.init({ table: 'students' })
 
 module.exports = {
+    ...Base,
     all(callback) {
         const query = `SELECT * FROM students ORDER BY name ASC`
 
@@ -140,5 +144,26 @@ module.exports = {
             
             return callback(result.rows)
         })
+    },
+    async novo(params) {
+        const { filters, limit, offset } = params
+        let query = `SELECT * FROM students`
+
+        if(filters) {
+            Object.keys(filters).map(key => {
+                query += ` ${key}`
+
+                Object.keys(filters[key]).map(field => {
+                    query += ` ${field} ILIKE '%${filters[key][field]}%'`
+                })
+            })
+        }
+
+        query += ` LIMIT ${limit} OFFSET ${offset}`
+
+        console.log(query)
+
+        const result = await db.query(query)
+        return result.rows
     }
 }
