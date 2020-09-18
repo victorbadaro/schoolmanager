@@ -1,16 +1,11 @@
 const db = require('../../config/db')
 const { date } = require('../../lib/utils')
+const Base = require('./Base')
+
+Base.init({ table: 'teachers' })
 
 module.exports = {
-    all(callback) {
-        const query = `SELECT * FROM teachers ORDER BY name ASC`
-        db.query(query, function(err, result) {
-            if(err)
-                throw `Database error!\n${err}`
-
-            return callback(result.rows)
-        })
-    },
+    ...Base,
     create(data, callback) {
         const query = `
             INSERT INTO teachers (
@@ -140,5 +135,18 @@ module.exports = {
             
             return callback(result.rows)
         })
+    },
+    async allTeachersAndTheirStudents() {
+        let query = `SELECT * FROM teachers`
     }
+
+    // all(callback) {
+    //     const query = `SELECT * FROM teachers ORDER BY name ASC`
+    //     db.query(query, function(err, result) {
+    //         if(err)
+    //             throw `Database error!\n${err}`
+
+    //         return callback(result.rows)
+    //     })
+    // }
 }

@@ -4,28 +4,36 @@ const Student = require('../models/Student')
 module.exports = {
     async index(req, res) {
         let { filter, page, limit } = req.query
-        let filters = ''
 
         page = page || 1
         limit = limit || 2
         let offset = limit * (page - 1)
 
-        if(filter)
-            filters = {
-                where: { name: filter },
-                or: { email: filter }
-            }
+        let students = []
+        let totalStudents = 0
 
-        let students = await Student.novo({
-            filters,
-            limit,
-            offset
-        })
+        if(filter)
+            students = await Student.all({
+                where: { name: filter },
+                or: { email: filter },
+                limit,
+                offset
+            })
+        else
+            students = await Student.all({ limit, offset })
 
         if(students.length > 0) {
+            if(filter)
+                totalStudents = await Student.all({
+                    where: { name: filter },
+                    or: { email: filter }
+                })
+            else
+                totalStudents = await Student.all()
+
             const pagination = {
                 page,
-                total: Math.ceil(students.length / limit)
+                total: Math.ceil(totalStudents.length / limit)
             }
     
             students = students.map(student => ({
@@ -37,44 +45,6 @@ module.exports = {
         }
 
         return res.render('student/index', { students, filter })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // const params = {
-        //     filter,
-        //     page,
-        //     limit,
-        //     offset,
-        //     callback(students) {
-        //         const pagination = {
-        //             page,
-        //             total: students[0] ? Math.ceil(students[0].total / limit) : null
-        //         }
-
-        //         for(student of students) {
-        //             student.grade = grade(student.school_year)
-        //         }
-
-        //         return res.render('student/index', { students, pagination, filter })
-        //     }
-        // }
-
-        // Student.paginate(params)
     },
     post(req, res) {
         const keys = Object.keys(req.body)

@@ -6,12 +6,18 @@ async function find(filters, table) {
     if(filters) {
         Object.keys(filters).map(key => {
             query += ` ${key}`
-
-            Object.keys(filters[key]).map(field => {
-                query += ` ${field} = '${filters[key][field]}'`
-            })
+            
+            if(key != 'limit' && key != 'offset') 
+                Object.keys(filters[key]).map(field => {
+                    query += ` ${field} ILIKE '%${filters[key][field]}%'`
+                })
+            else
+                query += ` ${filters[key]}`
         })
     }
+
+    console.log('esta é a query de agora')
+    console.log(query)
 
     return await db.query(query)
 }

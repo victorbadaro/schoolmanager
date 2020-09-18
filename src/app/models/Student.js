@@ -6,16 +6,6 @@ Base.init({ table: 'students' })
 
 module.exports = {
     ...Base,
-    all(callback) {
-        const query = `SELECT * FROM students ORDER BY name ASC`
-
-        db.query(query, function(err, result) {
-            if(err)
-                throw `Database error!\n${err}`
-
-            return callback(result.rows)
-        })
-    },
     create(data, callback) {
         const query = `
             INSERT INTO students (
@@ -112,58 +102,48 @@ module.exports = {
 
             return callback(result.rows)
         })
-    },
-    paginate(params) {
-        const { filter, limit, offset, callback } = params
-
-        let query = '',
-            filterQuery = '',
-            totalQuery = `(SELECT COUNT(*) FROM students) AS total`
-
-        if(filter) {
-            filterQuery = `
-                WHERE name ILIKE '%${filter}%'
-                OR email ILIKE '%${filter}%'`
-
-            totalQuery = `(
-                SELECT COUNT (*) FROM students
-                ${filterQuery}
-            ) AS total`
-        }
-
-        query = `
-            SELECT *, ${totalQuery}
-            FROM students
-            ${filterQuery}
-            ORDER BY name ASC
-            LIMIT $1 OFFSET $2`
-        
-        db.query(query, [limit, offset], function(err, result) {
-            if(err)
-                throw `Database error!\n${err}`
-            
-            return callback(result.rows)
-        })
-    },
-    async novo(params) {
-        const { filters, limit, offset } = params
-        let query = `SELECT * FROM students`
-
-        if(filters) {
-            Object.keys(filters).map(key => {
-                query += ` ${key}`
-
-                Object.keys(filters[key]).map(field => {
-                    query += ` ${field} ILIKE '%${filters[key][field]}%'`
-                })
-            })
-        }
-
-        query += ` LIMIT ${limit} OFFSET ${offset}`
-
-        console.log(query)
-
-        const result = await db.query(query)
-        return result.rows
     }
+    
+    // all(callback) {
+    //     const query = `SELECT * FROM students ORDER BY name ASC`
+
+    //     db.query(query, function(err, result) {
+    //         if(err)
+    //             throw `Database error!\n${err}`
+
+    //         return callback(result.rows)
+    //     })
+    // },
+    // paginate(params) {
+    //     const { filter, limit, offset, callback } = params
+
+    //     let query = '',
+    //         filterQuery = '',
+    //         totalQuery = `(SELECT COUNT(*) FROM students) AS total`
+
+    //     if(filter) {
+    //         filterQuery = `
+    //             WHERE name ILIKE '%${filter}%'
+    //             OR email ILIKE '%${filter}%'`
+
+    //         totalQuery = `(
+    //             SELECT COUNT (*) FROM students
+    //             ${filterQuery}
+    //         ) AS total`
+    //     }
+
+    //     query = `
+    //         SELECT *, ${totalQuery}
+    //         FROM students
+    //         ${filterQuery}
+    //         ORDER BY name ASC
+    //         LIMIT $1 OFFSET $2`
+        
+    //     db.query(query, [limit, offset], function(err, result) {
+    //         if(err)
+    //             throw `Database error!\n${err}`
+            
+    //         return callback(result.rows)
+    //     })
+    // }
 }
