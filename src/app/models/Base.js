@@ -33,5 +33,23 @@ module.exports = {
     async all(filters) {
         const result = await find(filters, this.table)
         return result.rows
+    },
+    async create(fields) {
+        const keys = []
+        const values = []
+
+        Object.keys(fields).map(key => {
+            keys.push(key)
+            values.push(`'${fields[key]}'`)
+        })
+
+        const query = `INSERT INTO ${this.table} (${keys.join(',')}) VALUES (${values.join(',')}) RETURNING id`
+        const result = await db.query(query)
+
+        return result.rows[0].id
+    },
+    async find(fields) {
+        const result = await find(fields, this.table)
+        return result.rows[0]
     }
 }

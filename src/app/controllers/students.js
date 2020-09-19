@@ -1,5 +1,6 @@
 const { date, grade } = require('../../lib/utils')
 const Student = require('../models/Student')
+const Teacher = require('../models/Teacher')
 
 module.exports = {
     async index(req, res) {
@@ -44,9 +45,10 @@ module.exports = {
             return res.render('student/index', { students, pagination, filter })
         }
 
-        return res.render('student/index', { students, filter })
+        return res.render('student/index', { filter })
     },
-    post(req, res) {
+    async post(req, res) {
+        const { avatar_url, name, birth_date, email, school_year, hours_by_week, teacher_id } = req.body
         const keys = Object.keys(req.body)
 
         for (key of keys) {
@@ -54,18 +56,28 @@ module.exports = {
                 return res.send('Por favor, preencha todos os campos!')
         }
 
-        Student.create(req.body, function(student) {
-            return res.redirect(`/student/${student.id}`)
+        const studentID = await Student.create({
+            avatar_url,
+            name,
+            birth_date: date(birth_date).isoFullDate,
+            email,
+            school_year,
+            hours_by_week,
+            teacher_id
         })
-    },
-    create(req, res) {
-        Student.teachers(function(teachers) {
-            return res.render('student/create', { teachers })
-        })
-    },
-    show(req, res) {
-        const { id } = req.params
 
+        return res.redirect(`/student/${studentID}`)
+    },
+    async create(req, res) {
+        const teachers = await Teacher.all()
+
+        return res.render('student/create', { teachers })
+    },
+    async show(req, res) {
+        const { id } = req.params
+        const student = await Student.find({ where: {id} })
+
+        return res.render('student/show', { student })
         Student.find(id, function(student) {
             student.birth_date = `${date(student.birth_date).day}/${date(student.birth_date).month}`
             student.grade = grade(student.school_year)
@@ -73,8 +85,19 @@ module.exports = {
             return res.render('student/show', { student })
         })
     },
-    edit(req, res) {
+    async edit(req, res) {
         const { id } = req.params
+        const student = await Student.find({ where: {id} })
+        const teachers = await Teacher.all()
+        let teacher = {}
+
+        teachers.forEach(teacher => {
+
+        })
+
+        student.birth_date = date(student.birth_date).isoFullDate
+
+        return res.render('student/edit', { student, teachers })
 
         Student.find(id, function(student) {
             if(!student)

@@ -6,35 +6,35 @@ Base.init({ table: 'teachers' })
 
 module.exports = {
     ...Base,
-    create(data, callback) {
-        const query = `
-            INSERT INTO teachers (
-                avatar_url,
-                name,
-                birth_date,
-                education_level,
-                class_type,
-                subjects_taught,
-                created_at
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-            RETURNING id`
-        const values = [
-            data.avatar_url,
-            data.name,
-            date(data.birth_date).isoFullDate,
-            data.education_level,
-            data.class_type,
-            data.subjects_taught,
-            date(Date.now()).isoFullDate
-        ]
+    // create(data, callback) {
+    //     const query = `
+    //         INSERT INTO teachers (
+    //             avatar_url,
+    //             name,
+    //             birth_date,
+    //             education_level,
+    //             class_type,
+    //             subjects_taught,
+    //             created_at
+    //         ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+    //         RETURNING id`
+    //     const values = [
+    //         data.avatar_url,
+    //         data.name,
+    //         date(data.birth_date).isoFullDate,
+    //         data.education_level,
+    //         data.class_type,
+    //         data.subjects_taught,
+    //         date(Date.now()).isoFullDate
+    //     ]
 
-        db.query(query, values, function(err, result) {
-            if(err)
-                throw `Database error!\n${err}`
+    //     db.query(query, values, function(err, result) {
+    //         if(err)
+    //             throw `Database error!\n${err}`
 
-            return callback(result.rows[0])
-        })
-    },
+    //         return callback(result.rows[0])
+    //     })
+    // },
     find(id, callback) {
         const query = `SELECT * FROM teachers WHERE id = $1`
         const value = [id]
@@ -99,54 +99,5 @@ module.exports = {
 
             return callback()
         })
-    },
-    paginate(params) {
-        const { filter, limit, offset, callback } = params
-
-        let query = '',
-            filterQuery = '',
-            totalQuery = `(SELECT COUNT(*) FROM teachers) AS total`
-
-        if(filter) {
-            filterQuery = `
-                WHERE teachers.name ILIKE '%${filter}%'
-                OR teachers.subjects_taught ILIKE '%${filter}%'`
-
-            totalQuery = `(
-                SELECT COUNT (*) FROM teachers
-                ${filterQuery}
-            ) AS total`
-        }
-
-        query = `
-            SELECT teachers.*, ${totalQuery}, COUNT(students) AS total_students
-            FROM teachers
-            LEFT JOIN students ON (teachers.id = students.teacher_id)
-            ${filterQuery}
-            GROUP BY teachers.id
-            ORDER BY name ASC
-            LIMIT $1 OFFSET $2`
-
-        console.log(query)
-        
-        db.query(query, [limit, offset], function(err, result) {
-            if(err)
-                throw `Database error!\n${err}`
-            
-            return callback(result.rows)
-        })
-    },
-    async allTeachersAndTheirStudents() {
-        let query = `SELECT * FROM teachers`
     }
-
-    // all(callback) {
-    //     const query = `SELECT * FROM teachers ORDER BY name ASC`
-    //     db.query(query, function(err, result) {
-    //         if(err)
-    //             throw `Database error!\n${err}`
-
-    //         return callback(result.rows)
-    //     })
-    // }
 }
