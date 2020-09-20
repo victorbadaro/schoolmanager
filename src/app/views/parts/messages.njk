@@ -1,0 +1,17 @@
+{% if error %}
+    <div class="message error">
+        {{ error }}
+        <div class="close-button">+</div>
+    </div>
+{% endif %}
+
+{% if success %}
+    <div class="message success">
+        {{ success }}
+        <div class="close-button">+</div>
+    </div>
+{% endif %}
+
+{% if error or success %}
+    {% include "parts/removeMessage.njk" %}
+{% endif %}

@@ -1,0 +1,14 @@
+<script class="removeMessageScript">
+    const messageElement = document.querySelector('.message')
+    const closeButton = messageElement.querySelector('.close-button')
+    const removeMessageScript = document.querySelector('.removeMessageScript')
+
+    closeButton.addEventListener('click', removeElements)
+
+    setTimeout(() => removeElements(), 4300)
+
+    function removeElements() {
+        messageElement.remove()
+        removeMessageScript.remove()
+    }
+</script>

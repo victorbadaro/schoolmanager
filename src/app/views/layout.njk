@@ -4,10 +4,13 @@
         <title>Desafio 4-7 | {% block title %}{% endblock title %}</title>
         <meta charset=utf-8>
         <link rel="stylesheet" href="/css/style.css">
-        {% block css %}
-        {% endblock css %}
+        <link rel="stylesheet" href="/css/messages.css">
     </head>
     <body>
+        {# <div class="message error">Esta é uma mensagem de erro
+            <div class="close-button">+</div>
+        </div> #}
+        {% include "parts/messages.njk" %}
         <header>
             <a href="/teacher">Professores</a>
             <a href="/student">Alunos</a>

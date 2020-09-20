@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
 
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
 :root {
     --primary-color: #282A36;
     --secondary-color: #FF5E88;
     --text-color: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 body {
