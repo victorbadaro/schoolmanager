@@ -24,8 +24,6 @@ async function find(filters, table) {
         })
     }
 
-    console.log(query)
-
     return await db.query(query)
 }
 
@@ -58,5 +56,20 @@ module.exports = {
     async find(fields) {
         const result = await find(fields, this.table)
         return result.rows[0]
+    },
+    async update(id, fields) {
+        const updates = []
+
+        Object.keys(fields).map(key => {
+            updates.push(`${key} = '${fields[key]}'`)
+        })
+
+        const query = `UPDATE ${this.table} SET ${updates.join(',')} WHERE id = ${id} RETURNING id`
+        const result = await db.query(query)
+
+        return result.rows[0].id
+    },
+    async delete(id) {
+        await db.query(`DELETE FROM ${this.table} WHERE id = ${id}`)
     }
 }

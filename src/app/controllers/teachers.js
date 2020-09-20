@@ -72,9 +72,22 @@ module.exports = {
 
         return res.redirect(`/teacher/${teacherID}`)
     },
-    show(req, res) {
+    async show(req, res) {
         const { id } = req.params
+        let teacher = await Teacher.find({ where: {id} })
 
+        teacher = {
+            ...teacher,
+            age: age(teacher.birth_date),
+            education_level: graduation(teacher.education_level),
+            class_type: teacher.class_type === 'presential' ? 'PRESENCIAL' : 'À DISTÂNCIA',
+            subjects_taught: teacher.subjects_taught.split(',').map(subject_taught => subject_taught.trim()),
+            created_at: new intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(teacher.created_at)
+        }
+
+        return res.render('teacher/show', { teacher })
+
+        /*
         Teacher.find(id, function(teacher) {
             teacher.age = age(teacher.birth_date)
             teacher.education_level = graduation(teacher.education_level)
@@ -86,17 +99,21 @@ module.exports = {
 
             return res.render('teacher/show', { teacher })
         })
+        */
     },
-    edit(req, res) {
+    async edit(req, res) {
         const { id } = req.params
+        let teacher = await Teacher.find({ where: {id} })
 
-        Teacher.find(id, function(teacher) {
-            teacher.birth_date = date(teacher.birth_date).isoFullDate
+        teacher = {
+            ...teacher,
+            birth_date: date(teacher.birth_date).isoFullDate
+        }
 
-            return res.render('teacher/edit', { teacher })
-        })
+        return res.render('teacher/edit', { teacher })
     },
-    update(req, res) {
+    async update(req, res) {
+        const { id, avatar_url, name, birth_date, education_level, class_type, subjects_taught } = req.body
         const keys = Object.keys(req.body)
 
         for (key of keys) {
@@ -104,15 +121,21 @@ module.exports = {
                 return res.send('Por favor, preencha todos os campos!')
         }
 
-        Teacher.update(req.body, function(teacher) {
-            return res.redirect(`/teacher/${teacher.id}`)
+        const teacherID = await Teacher.update(id, {
+            avatar_url,
+            name,
+            birth_date,
+            education_level,
+            class_type,
+            subjects_taught
         })
+
+        return res.redirect(`/teacher/${teacherID}`)
     },
-    delete(req, res) {
+    async delete(req, res) {
         const { id } = req.body
 
-        Teacher.delete(id, function() {
-            return res.redirect('/teacher')
-        })
+        await Teacher.delete(id)
+        return res.redirect('/teacher')
     }
 }

@@ -78,47 +78,33 @@ module.exports = {
     async show(req, res) {
         const { id } = req.params
         let student = await Student.find({ where: {id} })
+        const teacher = await Teacher.find({ where: { id: student.teacher_id } })
 
         student = {
             ...student,
             birth_date: `${date(student.birth_date).day}/${date(student.birth_date).month}`,
-            grade: grade(student.school_year)
+            grade: grade(student.school_year),
+            teacher_name: teacher.name
         }
 
         return res.render('student/show', { student })
-        Student.find(id, function(student) {
-            student.birth_date = `${date(student.birth_date).day}/${date(student.birth_date).month}`
-            student.grade = grade(student.school_year)
-
-            return res.render('student/show', { student })
-        })
     },
     async edit(req, res) {
         const { id } = req.params
-        const student = await Student.find({ where: {id} })
+        let student = await Student.find({ where: {id} })
+        const teacher = await Teacher.find({ where: { id: student.teacher_id } })
         const teachers = await Teacher.all()
-        let teacher = {}
 
-        teachers.forEach(teacher => {
-
-        })
-
-        student.birth_date = date(student.birth_date).isoFullDate
+        student = {
+            ...student,
+            birth_date: date(student.birth_date).isoFullDate,
+            teacher_name: teacher.name
+        }
 
         return res.render('student/edit', { student, teachers })
-
-        Student.find(id, function(student) {
-            if(!student)
-                return res.send('Aluno não encontrado!')
-
-            student.birth_date = date(student.birth_date).isoFullDate
-
-            Student.teachers(function(teachers) {
-                return res.render('student/edit', { student, teachers })
-            })
-        })
     },
-    update(req, res) {
+    async update(req, res) {
+        const { id, avatar_url, name, birth_date, email, school_year, hours_by_week, teacher_id } = req.body
         const keys = Object.keys(req.body)
 
         for (key of keys) {
@@ -126,15 +112,26 @@ module.exports = {
                 return res.send('Por favor, preencha todos os campos!')
         }
 
+        const studentID = await Student.update(id, {
+            avatar_url,
+            name,
+            birth_date,
+            email,
+            school_year,
+            hours_by_week,
+            teacher_id
+        })
+
+        return res.redirect(`/student/${studentID}`)
+
         Student.update(req.body, function(student) {
             return res.redirect(`/student/${student.id}`)
         })
     },
-    delete(req, res) {
+    async delete(req, res) {
         const { id } = req.body
+        await Student.delete(id)
 
-        Student.delete(id, function() {
-            return res.redirect('/student')
-        })
+        return res.redirect('/student')
     }
 }
