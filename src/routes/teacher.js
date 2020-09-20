@@ -1,5 +1,5 @@
 const routes = require('express').Router()
-const TeacherController = require('../app/controllers/teachers')
+const TeacherController = require('../app/controllers/TeacherController')
 
 routes.get('/', TeacherController.index)
 routes.post('/', TeacherController.post)
