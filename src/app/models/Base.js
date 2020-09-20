@@ -2,21 +2,28 @@ const db = require('../../config/db')
 
 async function find(filters, table) {
     let query = `SELECT * FROM ${table}`
+    let searchFilter = false
 
     if(filters) {
         Object.keys(filters).map(key => {
-            query += ` ${key}`
-            
-            if(key != 'limit' && key != 'offset') 
-                Object.keys(filters[key]).map(field => {
-                    query += ` ${field} ILIKE '%${filters[key][field]}%'`
-                })
-            else
-                query += ` ${filters[key]}`
+            if(key === 'searchFilter')
+                searchFilter = true
+            else {
+                query += ` ${key}`
+                
+                if(key != 'limit' && key != 'offset') 
+                    Object.keys(filters[key]).map(field => {
+                        if(searchFilter)
+                            query += ` ${field} ILIKE '%${filters[key][field]}%'`
+                        else
+                            query += ` ${field} = '${filters[key][field]}'`
+                    })
+                else
+                    query += ` ${filters[key]}`
+            }
         })
     }
 
-    console.log('esta é a query de agora')
     console.log(query)
 
     return await db.query(query)

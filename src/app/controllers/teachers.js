@@ -15,6 +15,7 @@ module.exports = {
 
         if(filter)
             teachers = await Teacher.all({
+                searchFilter: true,
                 where: { name: filter },
                 or: { subjects_taught: filter },
                 limit,
@@ -26,6 +27,7 @@ module.exports = {
         if(teachers.length > 0) {
             if(filter)
                 totalTeachers = await Teacher.all({
+                    searchFilter: true,
                     where: { name: filter },
                     or: { subjects_taught: filter }
                 })

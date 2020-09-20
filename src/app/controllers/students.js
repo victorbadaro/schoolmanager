@@ -15,6 +15,7 @@ module.exports = {
 
         if(filter)
             students = await Student.all({
+                searchFilter: true,
                 where: { name: filter },
                 or: { email: filter },
                 limit,
@@ -26,6 +27,7 @@ module.exports = {
         if(students.length > 0) {
             if(filter)
                 totalStudents = await Student.all({
+                    searchFilter: true,
                     where: { name: filter },
                     or: { email: filter }
                 })
@@ -75,7 +77,13 @@ module.exports = {
     },
     async show(req, res) {
         const { id } = req.params
-        const student = await Student.find({ where: {id} })
+        let student = await Student.find({ where: {id} })
+
+        student = {
+            ...student,
+            birth_date: `${date(student.birth_date).day}/${date(student.birth_date).month}`,
+            grade: grade(student.school_year)
+        }
 
         return res.render('student/show', { student })
         Student.find(id, function(student) {
