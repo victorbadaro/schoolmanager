@@ -1,9 +1,10 @@
 const routes = require('express').Router()
 const TeacherController = require('../app/controllers/TeacherController')
+const TeacherValidator = require('../app/validators/teacher')
 
 routes.get('/', TeacherController.index)
-routes.post('/', TeacherController.post)
-routes.put('/', TeacherController.update)
+routes.post('/', TeacherValidator.post, TeacherController.post)
+routes.put('/', TeacherValidator.update, TeacherController.update)
 routes.delete('/', TeacherController.delete)
 routes.get('/create', TeacherController.create)
 routes.get('/:id', TeacherController.show)

@@ -51,12 +51,6 @@ module.exports = {
     },
     async post(req, res) {
         const { avatar_url, name, birth_date, email, school_year, hours_by_week, teacher_id } = req.body
-        const keys = Object.keys(req.body)
-
-        for (key of keys) {
-            if (req.body[key] == '')
-                return res.send('Por favor, preencha todos os campos!')
-        }
 
         const studentID = await Student.create({
             avatar_url,
@@ -105,12 +99,6 @@ module.exports = {
     },
     async update(req, res) {
         const { id, avatar_url, name, birth_date, email, school_year, hours_by_week, teacher_id } = req.body
-        const keys = Object.keys(req.body)
-
-        for (key of keys) {
-            if (req.body[key] == '')
-                return res.send('Por favor, preencha todos os campos!')
-        }
 
         const studentID = await Student.update(id, {
             avatar_url,
@@ -123,10 +111,6 @@ module.exports = {
         })
 
         return res.redirect(`/student/${studentID}`)
-
-        Student.update(req.body, function(student) {
-            return res.redirect(`/student/${student.id}`)
-        })
     },
     async delete(req, res) {
         const { id } = req.body

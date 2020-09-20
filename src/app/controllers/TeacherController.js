@@ -54,12 +54,6 @@ module.exports = {
     },
     async post(req, res) {
         const { avatar_url, name, birth_date, education_level, class_type, subjects_taught, created_at } = req.body
-        const keys = Object.keys(req.body)
-
-        for (key of keys) {
-            if (req.body[key] == '')
-                return res.send('Por favor, preencha todos os campos!')
-        }
 
         const teacherID = await Teacher.create({
             avatar_url,
@@ -86,20 +80,6 @@ module.exports = {
         }
 
         return res.render('teacher/show', { teacher })
-
-        /*
-        Teacher.find(id, function(teacher) {
-            teacher.age = age(teacher.birth_date)
-            teacher.education_level = graduation(teacher.education_level)
-            teacher.class_type = teacher.class_type == 'presential' ? 'PRESENCIAL' : 'À DISTÂNCIA'
-            teacher.subjects_taught = teacher.subjects_taught.split(',').map(function(subject) {
-                return subject.trim()
-            })
-            teacher.created_at = new intl.DateTimeFormat('pt-BR', {timeZone: 'UTC'}).format(teacher.created_at)
-
-            return res.render('teacher/show', { teacher })
-        })
-        */
     },
     async edit(req, res) {
         const { id } = req.params
@@ -114,12 +94,6 @@ module.exports = {
     },
     async update(req, res) {
         const { id, avatar_url, name, birth_date, education_level, class_type, subjects_taught } = req.body
-        const keys = Object.keys(req.body)
-
-        for (key of keys) {
-            if (req.body[key] == '')
-                return res.send('Por favor, preencha todos os campos!')
-        }
 
         const teacherID = await Teacher.update(id, {
             avatar_url,
