@@ -56,3 +56,49 @@ function paginate(selectecPage, totalPages) {
 
     return pages
 }
+
+const emailElements = document.querySelectorAll('input[type=email]')
+
+emailElements.forEach(emailElement => emailElement.addEventListener('blur', function() {
+    Validate.apply(this, 'isEmail')
+}))
+
+const Validate = {
+    apply(element, func) {
+        Validate.clearErrors(element)
+        const result = Validate[func](element.value)
+
+        element.value = result.value
+        if(result.error)
+            Validate.showError(element, result.error)
+    },
+    clearErrors(element) {
+        const itemElement = element.parentNode
+        const errorElement = itemElement.querySelector('.error')
+
+        if(errorElement)
+            errorElement.remove()
+    },
+    showError(element, error) {
+        const itemElement = element.parentNode
+        const spanError = document.createElement('span')
+
+        spanError.classList.add('error')
+        spanError.innerHTML = error
+
+        itemElement.appendChild(spanError)
+        element.focus()
+    },
+    isEmail(value) {
+        let error = ''
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if(!value.match(mailFormat))
+            error = 'Email inválido!'
+
+        return {
+            value,
+            error
+        }
+    }
+}

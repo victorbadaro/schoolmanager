@@ -90,6 +90,7 @@ header a:hover::after {
 }
 
 .details div .item {
+    position: relative;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
     padding: 8px 0;
 }
