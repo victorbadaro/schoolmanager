@@ -64,7 +64,7 @@ module.exports = {
             subjects_taught
         })
 
-        return res.redirect(`/teacher/${teacherID}`)
+        return res.render('teacher/success', { message: 'Professor criado com sucesso!', teacherID })
     },
     async show(req, res) {
         const { id } = req.params
@@ -104,12 +104,12 @@ module.exports = {
             subjects_taught
         })
 
-        return res.redirect(`/teacher/${teacherID}`)
+        return res.render('teacher/success', { message: 'Professor atualizado com sucesso!', teacherID })
     },
     async delete(req, res) {
         const { id } = req.body
 
         await Teacher.delete(id)
-        return res.redirect('/teacher')
+        return res.render('teacher/deleted', { message: 'Professor deletado com sucesso!' })
     }
 }

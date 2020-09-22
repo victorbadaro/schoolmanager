@@ -62,7 +62,7 @@ module.exports = {
             teacher_id
         })
 
-        return res.redirect(`/student/${studentID}`)
+        return res.render('student/success', { message: 'Aluno cadastrado com sucesso!', studentID })
     },
     async create(req, res) {
         const teachers = await Teacher.all()
@@ -110,12 +110,12 @@ module.exports = {
             teacher_id
         })
 
-        return res.redirect(`/student/${studentID}`)
+        return res.render('student/success', { message: 'Aluno atualizado com sucesso!', studentID })
     },
     async delete(req, res) {
         const { id } = req.body
         await Student.delete(id)
 
-        return res.redirect('/student')
+        return res.render('student/deleted', { message: 'Aluno deletado com sucesso!' })
     }
 }

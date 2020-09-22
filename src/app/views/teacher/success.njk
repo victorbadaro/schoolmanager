@@ -1,0 +1,25 @@
+{% extends "layout.njk" %}
+
+{% block title %}Professor{% endblock title %}
+
+{% block content %}
+    <div class="card-message">
+        <div class="success-lottie"></div>
+        <div class="content">
+            <h2>{{ message }}</h2>
+            <a href="/teacher/{{ teacherID }}">Veja aqui os dados do professor</a>
+        </div>
+    </div>
+    <script src="/js/lottie.js" type="text/javascript"></script>
+    <script>
+        const element = document.querySelector('.success-lottie')
+
+        lottie.loadAnimation({
+            container: element, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/js/lottieFiles/success.json' // the path to the animation json
+        });
+    </script>
+{% endblock content %}

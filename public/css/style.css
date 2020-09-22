@@ -65,13 +65,50 @@ header a:hover::after {
     margin: 45px auto;
     display: grid;
     grid-template-columns: 40% 60%;
-    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.7) ;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.7);
     opacity: 0;
     animation-name: up;
     animation-duration: 1s;
     animation-timing-function: ease;
     animation-fill-mode: forwards;
     animation-delay: 1s;
+}
+
+.card-message {
+    background-color: var(--secondary-color);
+    width: 800px;
+    min-height: 400px;
+    margin: 45px auto;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.7);
+}
+
+.card-message .success-lottie {
+    height: 300px;
+}
+
+.card-message .deleted-lottie {
+    margin-bottom: 32px;
+    padding: 42px 0;
+    height: 150px;
+}
+
+.card-message .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-message .content h2 {
+    color: var(--primary-color);
+}
+
+.card-message .content a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.card-message .content a:hover {
+    text-decoration: underline;
 }
 
 @keyframes up {
